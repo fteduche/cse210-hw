@@ -2,14 +2,29 @@ using System;
 
 public class Comment
 {
-    public string Name { get; set; }
-    public string Text { get; set; }
-    public DateTime Date { get; set; }
+    private string _name;
+    private string _text;
+    private DateTime _date;
 
     public Comment(string name, string text)
     {
-        Name = name;
-        Text = text;
-        Date = DateTime.Now;
+        _name = name;
+        _text = text;
+        _date = DateTime.Now;
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public string GetText()
+    {
+        return _text;
+    }
+
+    public DateTime GetDate()
+    {
+        return _date;
     }
 }

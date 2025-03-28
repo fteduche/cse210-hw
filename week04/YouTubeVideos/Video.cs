@@ -3,61 +3,61 @@ using System.Collections.Generic;
 
 public class Video
 {
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public int Length { get; set; }
-    public List<Comment> Comments { get; set; }
-    public int Views { get; set; }
-    public int Likes { get; set; }
+    private string _title;
+    private string _author;
+    private int _length;
+    private List<Comment> _comments;
+    private int _views;
+    private int _likes;
 
     public Video(string title, string author, int length)
     {
-        Title = title;
-        Author = author;
-        Length = length;
-        Comments = new List<Comment>();
-        Views = 0;
-        Likes = 0;
+        _title = title;
+        _author = author;
+        _length = length;
+        _comments = new List<Comment>();
+        _views = 0;
+        _likes = 0;
     }
 
     public void AddComment(Comment comment)
     {
-        Comments.Add(comment);
+        _comments.Add(comment);
     }
 
-    public int GetCommentCount()
+    public int GetCommentsCount()
     {
-        return Comments.Count;
+        return _comments.Count;
     }
 
     public void DisplayComments()
     {
-        foreach (var comment in Comments)
+        foreach (var comment in _comments)
         {
-            Console.WriteLine($"Comment by {comment.Name} on {comment.Date}: {comment.Text}");
+            Console.WriteLine($"Comment by {comment.GetName()} on {comment.GetDate()}: {comment.GetText()}");
         }
     }
 
     public void View()
     {
-        Views++;
-        Console.WriteLine($"You are watching: {Title}");
+        _views++;
+        Console.WriteLine($"You are watching: {_title}");
     }
 
     public void Like()
     {
-        Likes++;
-        Console.WriteLine($"You liked: {Title}");
+        _likes++;
+        Console.WriteLine($"You liked: {_title}");
     }
 
     public void DisplayDetails()
     {
-        Console.WriteLine($"Title: {Title}");
-        Console.WriteLine($"Author: {Author}");
-        Console.WriteLine($"Length: {Length} seconds");
-        Console.WriteLine($"Views: {Views}");
-        Console.WriteLine($"Likes: {Likes}");
-        Console.WriteLine($"Comment Count: {GetCommentCount()}");
+        Console.WriteLine($"Title: {_title}");
+        Console.WriteLine($"Author: {_author}");
+        Console.WriteLine($"Length: {_length} seconds");
+        Console.WriteLine($"Views: {_views}");
+        Console.WriteLine($"Likes: {_likes}");
+        Console.WriteLine($"Comment Count: {GetCommentsCount()}");
         DisplayComments();
     }
 }
