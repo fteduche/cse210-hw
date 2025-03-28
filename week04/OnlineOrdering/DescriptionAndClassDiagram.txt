@@ -1,37 +1,67 @@
 Class Diagram for youtube program
 +---------------+
-|     Comment   |
+|    Comment    |
 +---------------+
-| - Name: string    |
-| - Text: string     |
-| - Date: DateTime   |
-| + Comment(name, text)|
+| - _name: string  |
+| - _text: string   |
+| - _date: DateTime|
++---------------+
+| + Comment(name: string, text: string) |
+| + GetName(): string          |
+| + GetText(): string          |
+| + GetDate(): DateTime       |
 +---------------+
 
 +---------------+
 |      Video    |
 +---------------+
-| - Title: string    |
-| - Author: string   |
-| - Length: int       |
-| - Comments: List<Comment>|
-| - Views: int        |
-| - Likes: int        |
-| + Video(title, author, length)|
-| + AddComment(comment)       |
-| + GetCommentCount()         |
-| + DisplayComments()         |
-| + View()                    |
-| + Like()                    |
-| + DisplayDetails()         |
+| - _title: string        |
+| - _author: string       |
+| - _length: int          |
+| - _comments: List<Comment>|
+| - _views: int           |
+| - _likes: int           |
++---------------+
+| + Video(title: string, author: string, length: int)|
+| + AddComment(comment: Comment)|
+| + GetCommentsCount(): int|
+| + DisplayComments()    |
+| + View()                |
+| + Like()                |
+| + DisplayDetails()      |
++---------------+
+
++---------------+
+|     Program    |
++---------------+
+| (no fields)    |
++---------------+
+| + Main(args: string[]) |
+| + CreateVideos(): List<Video>|
+| + DisplayVideoDetails(video: Video) |
++---------------++---------------+
+|     Program    |
++---------------+
+| (no fields)    |
++---------------+
+| + Main(args: string[]) |
+| + CreateVideos(): List<Video>|
+| + DisplayVideoDetails(video: Video) |
 +---------------+
 
 
 This class diagram illustrates the structure and relationships of the classes in the program:
 
-- The Comment class represents a comment and has properties for name, text, and date. It also has a constructor to create a new comment.
-- The Video class represents a video and has properties for title, author, length, comments, views, and likes. It also has methods to add comments, get the comment count, display comments, view the video, like the video, and display the video's details.
+- The Comment class represents a comment and has properties for _name, _text, and _date. It also has a constructor to create a new comment, and methods to retrieve the name, text, and date of the comment.
+- The Video class represents a video and has properties for _title, _author, _length, _comments, _views, and _likes. It also has methods to add comments, get the comment count, display comments, view the video, like the video, and display the video's details.
+- The Program class is the main entry point of the program and contains the Main method, which is responsible for creating instances of the Video class and demonstrating their functionality.
 
+The relationships between the classes are as follows:
+
+- A Video can have multiple `Comment`s.
+- The Program class uses instances of the Video class.
+
+Overall, this class diagram provides a clear and concise representation of the structure and relationships of the classes in the program.
 
 
 Class diagram for OnlineOrdering program
@@ -105,7 +135,13 @@ Class diagram for OnlineOrdering program
 
 This class diagram illustrates the structure and relationships of the classes in the program:
 
-- The Address class represents a customer's address and has properties for street address, city, state/province, country, and postal code. It also has methods to get the full address and check if the address is in the USA.
-- The Customer class represents a customer and has properties for name, address, email, and phone number. It also has methods to get the customer's name, address, email, and phone number, as well as a method to check if the customer is a USA customer.
-- The Product class represents a product and has properties for name, product ID, price, quantity, and description. It also has methods to get the product's name, product ID, description, and total cost.
-- The Order class represents an order and has properties for customer, products, and tax rate. It also has methods to add products to the order, get the packing label, shipping label, subtotal, tax, total cost, and invoice.
+- The Address class represents a customer's address and has properties for _streetAddress, _city, _stateProvince, _country, and _postalCode. It also has methods to get the full address (GetFullAddress()) and check if the address is in the USA (IsUSA()).
+- The Customer class represents a customer and has properties for _name, _address, _email, and _phoneNumber. It also has methods to get the customer's name (GetName()), address (GetAddress()), email (GetEmail()), and phone number (GetPhoneNumber()), as well as a method to check if the customer is a USA customer (IsUSACustomer()).
+- The Product class represents a product and has properties for _name, _productId, _price, _quantity, and _description. It also has methods to get the product's name (GetName()), product ID (GetProductId()), description (GetDescription()), and total cost (GetTotalCost()).
+- The Order class represents an order and has properties for _customer, _products, and _taxRate. It also has methods to add products to the order (AddProduct()), get the packing label (GetPackingLabel()), shipping label (GetShippingLabel()), subtotal (GetSubtotal()), tax (GetTax()), total cost (GetTotalCost()), and invoice (GetInvoice()).
+
+The relationships between the classes are as follows:
+
+- A Customer has an Address.
+- An Order is placed by a Customer and contains multiple `Product`s.
+- The Order class uses the Customer and Product classes to calculate the subtotal, tax, and total cost of the order.
