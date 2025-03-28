@@ -1,0 +1,54 @@
++---------------+
+|     Address   |
++---------------+
+| - streetAddress: string |
+| - city: string          |
+| - stateProvince: string|
+| - country: string       |
+| - postalCode: string    |
+| + GetFullAddress(): string|
+| + IsUSA(): bool         |
++---------------+
+
++---------------+
+|    Customer   |
++---------------+
+| - name: string        |
+| - address: Address    |
+| - email: string       |
+| - phoneNumber: string  |
+| + GetName(): string   |
+| + GetAddress(): Address|
+| + GetEmail(): string   |
+| + GetPhoneNumber(): string|
+| + IsUSACustomer(): bool |
++---------------+
+
++---------------+
+|     Product   |
++---------------+
+| - name: string        |
+| - productId: string   |
+| - price: decimal      |
+| - quantity: int       |
+| - description: string  |
+| + GetName(): string   |
+| + GetProductId(): string|
+| + GetDescription(): string|
+| + GetTotalCost(): decimal|
++---------------+
+
++---------------+
+|      Order    |
++---------------+
+| - customer: Customer  |
+| - products: List<Product>|
+| - taxRate: decimal    |
+| + AddProduct(Product): void|
+| + GetPackingLabel(): string|
+| + GetShippingLabel(): string|
+| + GetSubtotal(): decimal |
+| + GetTax(): decimal     |
+| + GetTotalCost(): decimal |
+| + GetInvoice(): string   |
++---------------+
