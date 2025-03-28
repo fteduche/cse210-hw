@@ -39,56 +39,68 @@ Class diagram for OnlineOrdering program
 +---------------+
 |     Address   |
 +---------------+
-| - streetAddress: string |
-| - city: string          |
-| - stateProvince: string|
-| - country: string       |
-| - postalCode: string    |
-| + GetFullAddress(): string|
-| + IsUSA(): bool         |
+| - _streetAddress: string  |
+| - _city: string             |
+| - _stateProvince: string   |
+| - _country: string          |
+| - _postalCode: string       |
++---------------+
+| + Address(streetAddress: string,  |
+|     city: string, stateProvince: string,|
+|     country: string, postalCode: string) |
+| + IsUSA(): bool               |
+| + GetFullAddress(): string    |
 +---------------+
 
 +---------------+
 |    Customer   |
 +---------------+
-| - name: string        |
-| - address: Address    |
-| - email: string       |
-| - phoneNumber: string  |
-| + GetName(): string   |
-| + GetAddress(): Address|
-| + GetEmail(): string   |
-| + GetPhoneNumber(): string|
-| + IsUSACustomer(): bool |
+| - _name: string             |
+| - _address: Address          |
+| - _email: string            |
+| - _phoneNumber: string      |
++---------------+
+| + Customer(name: string, address: Address,|
+|     email: string, phoneNumber: string)    |
+| + IsUSACustomer(): bool     |
+| + GetName(): string          |
+| + GetAddress(): Address      |
+| + GetEmail(): string         |
+| + GetPhoneNumber(): string    |
 +---------------+
 
 +---------------+
 |     Product   |
 +---------------+
-| - name: string        |
-| - productId: string   |
-| - price: decimal      |
-| - quantity: int       |
-| - description: string  |
-| + GetName(): string   |
-| + GetProductId(): string|
-| + GetDescription(): string|
-| + GetTotalCost(): decimal|
+| - _name: string             |
+| - _productId: string        |
+| - _price: decimal           |
+| - _quantity: int             |
+| - _description: string       |
++---------------+
+| + Product(name: string, productId: string,|
+|     price: decimal, quantity: int, description: string)|
+| + GetTotalCost(): decimal   |
+| + GetName(): string          |
+| + GetProductId(): string     |
+| + GetDescription(): string   |
 +---------------+
 
 +---------------+
 |      Order    |
 +---------------+
-| - customer: Customer  |
-| - products: List<Product>|
-| - taxRate: decimal    |
-| + AddProduct(Product): void|
-| + GetPackingLabel(): string|
-| + GetShippingLabel(): string|
-| + GetSubtotal(): decimal |
-| + GetTax(): decimal     |
-| + GetTotalCost(): decimal |
-| + GetInvoice(): string   |
+| - _products: List<Product>  |
+| - _customer: Customer       |
+| - _taxRate: decimal         |
++---------------+
+| + Order(customer: Customer, taxRate: decimal)|
+| + AddProduct(product: Product)|
+| + GetSubtotal(): decimal    |
+| + GetTax(): decimal          |
+| + GetTotalCost(): decimal    |
+| + GetPackingLabel(): string   |
+| + GetShippingLabel(): string  |
+| + GetInvoice(): string       |
 +---------------+
 
 This class diagram illustrates the structure and relationships of the classes in the program:
