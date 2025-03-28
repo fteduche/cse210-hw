@@ -6,11 +6,11 @@ class Program
     static void Main(string[] args)
     {
         var video1 = new Video("Video 1", "Author 1", 300);
-        video1.AddComment(new Comment("John Doe", "Great video!"));
-        video1.AddComment(new Comment("Jane Doe", "I agree, very informative."));
+        video1.AddComment(new Comment("Muna Uche", "Great video!"));
+        video1.AddComment(new Comment("Nmeso CHim", "I agree, very informative."));
 
         var video2 = new Video("Video 2", "Author 2", 240);
-        video2.AddComment(new Comment("Alice Johnson", "Love the music!"));
+        video2.AddComment(new Comment("Praise Johnson", "Love the music!"));
         video2.AddComment(new Comment("Mike Davis", "Very engaging video."));
 
         var video3 = new Video("Video 3", "Author 3", 420);
