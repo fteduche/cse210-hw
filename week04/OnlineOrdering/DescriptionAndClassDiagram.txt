@@ -1,3 +1,41 @@
+Class Diagram for youtube program
++---------------+
+|     Comment   |
++---------------+
+| - Name: string    |
+| - Text: string     |
+| - Date: DateTime   |
+| + Comment(name, text)|
++---------------+
+
++---------------+
+|      Video    |
++---------------+
+| - Title: string    |
+| - Author: string   |
+| - Length: int       |
+| - Comments: List<Comment>|
+| - Views: int        |
+| - Likes: int        |
+| + Video(title, author, length)|
+| + AddComment(comment)       |
+| + GetCommentCount()         |
+| + DisplayComments()         |
+| + View()                    |
+| + Like()                    |
+| + DisplayDetails()         |
++---------------+
+
+
+This class diagram illustrates the structure and relationships of the classes in the program:
+
+- The Comment class represents a comment and has properties for name, text, and date. It also has a constructor to create a new comment.
+- The Video class represents a video and has properties for title, author, length, comments, views, and likes. It also has methods to add comments, get the comment count, display comments, view the video, like the video, and display the video's details.
+
+
+
+Class diagram for OnlineOrdering program
+
 +---------------+
 |     Address   |
 +---------------+
@@ -52,3 +90,10 @@
 | + GetTotalCost(): decimal |
 | + GetInvoice(): string   |
 +---------------+
+
+This class diagram illustrates the structure and relationships of the classes in the program:
+
+- The Address class represents a customer's address and has properties for street address, city, state/province, country, and postal code. It also has methods to get the full address and check if the address is in the USA.
+- The Customer class represents a customer and has properties for name, address, email, and phone number. It also has methods to get the customer's name, address, email, and phone number, as well as a method to check if the customer is a USA customer.
+- The Product class represents a product and has properties for name, product ID, price, quantity, and description. It also has methods to get the product's name, product ID, description, and total cost.
+- The Order class represents an order and has properties for customer, products, and tax rate. It also has methods to add products to the order, get the packing label, shipping label, subtotal, tax, total cost, and invoice.
