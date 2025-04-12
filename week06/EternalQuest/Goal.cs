@@ -1,26 +1,29 @@
 using System;
 
-public abstract class Goal
+namespace EternalQuest
 {
-    protected string _shortName;
-    protected string _description;
-    protected int _points;
-
-    public string ShortName => _shortName;
-    public int Points => _points;
-
-    public Goal(string name, string description, int points)
+    public abstract class Goal
     {
-        _shortName = name;
-        _description = description;
-        _points = points;
-    }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Points { get; set; }
+        public GoalPriority Priority { get; set; }
+        public DateTime DueDate { get; set; }
+        public int Progress { get; set; }
 
-    public abstract void RecordEvent();
-    public abstract bool IsComplete();
-    public virtual string GetDetailsString()
-    {
-        return $"[{((IsComplete() ? "[X]" : "[ ]"))}] {ShortName} ({Points} points) - {_description}";
+        protected Goal(string name, string description, int points, GoalPriority priority, DateTime dueDate)
+        {
+            Name = name;
+            Description = description;
+            Points = points;
+            Priority = priority;
+            DueDate = dueDate;
+            Progress = 0;
+        }
+
+        public abstract void RecordEvent();
+        public abstract bool IsComplete(); // Add this abstract method
+        public abstract string GetDetailsString();
+        public abstract string GetStringRepresentation();
     }
-    public abstract string GetStringRepresentation();
 }

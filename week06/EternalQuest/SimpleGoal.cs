@@ -1,26 +1,28 @@
-using System;
-
+using EternalQuest;
 public class SimpleGoal : Goal
 {
-    private bool _isComplete;
-
-    public SimpleGoal(string name, string description, int points) : base(name, description, points)
+    public SimpleGoal(string name, string description, int points, GoalPriority priority, DateTime dueDate) 
+        : base(name, description, points, priority, dueDate)
     {
-        _isComplete = false;
     }
 
     public override void RecordEvent()
     {
-        _isComplete = true;
+        Progress = 100;
     }
 
     public override bool IsComplete()
     {
-        return _isComplete;
+        return Progress >= 100;
+    }
+
+    public override string GetDetailsString()
+    {
+        return $"[{Name}] - {Description} - {Points} points - {Priority} priority - Due: {DueDate.ToString("MM/dd/yyyy")} - Progress: {Progress}%";
     }
 
     public override string GetStringRepresentation()
     {
-        return $"{_shortName},{_description},{_points},{_isComplete}";
+        return $"{Name},{Description},{Points},{Priority},{DueDate.ToString("MM/dd/yyyy")},{Progress}";
     }
 }

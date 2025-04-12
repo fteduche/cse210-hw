@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using EternalQuest;
 public class GoalManager
 {
     private List<Goal> _goals;
@@ -24,10 +24,8 @@ public class GoalManager
             Console.WriteLine("4. Save Goals");
             Console.WriteLine("5. Load Goals");
             Console.WriteLine("6. Exit");
-
             Console.Write("Choose an option: ");
             int option = Convert.ToInt32(Console.ReadLine());
-
             switch (option)
             {
                 case 1:
@@ -58,33 +56,32 @@ public class GoalManager
     {
         Console.Write("Enter goal type (Simple, Eternal, Checklist): ");
         string goalType = Console.ReadLine();
-
         Console.Write("Enter goal name: ");
         string name = Console.ReadLine();
-
         Console.Write("Enter goal description: ");
         string description = Console.ReadLine();
-
         Console.Write("Enter goal points: ");
         int points = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter goal priority (Low, Medium, High): ");
+        string priority = Console.ReadLine();
+        GoalPriority goalPriority = (GoalPriority)Enum.Parse(typeof(GoalPriority), priority);
+        Console.Write("Enter goal due date (MM/dd/yyyy): ");
+        string dueDate = Console.ReadLine();
+        DateTime goalDueDate = DateTime.Parse(dueDate);
 
         if (goalType.ToLower() == "simple")
         {
-            _goals.Add(new SimpleGoal(name, description, points));
+            _goals.Add(new SimpleGoal(name, description, points, goalPriority, goalDueDate));
         }
         else if (goalType.ToLower() == "eternal")
         {
-            _goals.Add(new EternalGoal(name, description, points));
+            _goals.Add(new EternalGoal(name, description, points, goalPriority, goalDueDate));
         }
         else if (goalType.ToLower() == "checklist")
         {
             Console.Write("Enter target: ");
             int target = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter bonus: ");
-            int bonus = Convert.ToInt32(Console.ReadLine());
-
-            _goals.Add(new ChecklistGoal(name, description, points, target, bonus));
+            _goals.Add(new ChecklistGoal(name, description, points, goalPriority, goalDueDate, target));
         }
         else
         {
@@ -93,27 +90,26 @@ public class GoalManager
     }
 
     public void RecordEvent()
-{
-    Console.WriteLine("Choose a goal to record an event for:");
-    for (int i = 0; i < _goals.Count; i++)
     {
-        Console.WriteLine($"{i + 1}. {_goals[i].ShortName}");
-    }
-
-    Console.Write("Enter the number of the goal: ");
-    int goalNumber = Convert.ToInt32(Console.ReadLine()) - 1;
-
+        Console.WriteLine("Choose a goal to record an event for:");
+        for (int i = 0; i < _goals.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {_goals[i].Name}");
+        }
+        Console.Write("Enter the number of the goal: ");
+        int goalNumber = Convert.ToInt32(Console.ReadLine()) - 1;
     if (goalNumber >= 0 && goalNumber < _goals.Count)
-    {
-        _goals[goalNumber].RecordEvent();
-        _score += _goals[goalNumber].Points;
-        Console.WriteLine($"Event recorded for {_goals[goalNumber].ShortName}.");
+        {
+            _goals[goalNumber].RecordEvent(); // Calls the overridden RecordEvent method
+            _score += _goals[goalNumber].Points; // Adds the goal's points to the score
+            Console.WriteLine($"Event recorded for {_goals[goalNumber].Name}.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid goal number.");
+        }
     }
-    else
-    {
-        Console.WriteLine("Invalid goal number.");
-    }
-}
+
     public void ListGoalDetails()
     {
         foreach (var goal in _goals)
@@ -122,60 +118,53 @@ public class GoalManager
         }
     }
 
-   public void SaveGoals()
-{
-    if (!File.Exists("goals.txt"))
+    public void SaveGoals()
     {
-        File.Create("goals.txt").Dispose();
-    }
-
-    using (StreamWriter writer = new StreamWriter("goals.txt"))
-    {
-        foreach (var goal in _goals)
+        using (StreamWriter writer = new StreamWriter("goals.txt"))
         {
-            writer.WriteLine(goal.GetStringRepresentation());
+            foreach (var goal in _goals)
+            {
+                writer.WriteLine(goal.GetStringRepresentation());
+            }
         }
+        Console.WriteLine("Goals saved to goals.txt.");
     }
-    Console.WriteLine("Goals saved to goals.txt.");
-}
-
 
     public void LoadGoals()
     {
         if (File.Exists("goals.txt"))
         {
             _goals.Clear();
-
             using (StreamReader reader = new StreamReader("goals.txt"))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] parts = line.Split(',');
-
-                    if (parts.Length == 4)
+                    if (parts[0].ToLower() == "simple")
                     {
-                        if (parts[3] == "True" || parts[3] == "False")
-                        {
-                            _goals.Add(new SimpleGoal(parts[0], parts[1], int.Parse(parts[2])));
-                        }
-                        else
-                        {
-                            _goals.Add(new EternalGoal(parts[0], parts[1], int.Parse(parts[2])));
-                        }
+                        _goals.Add(new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]), (GoalPriority)Enum.Parse(typeof(GoalPriority), parts[4]), DateTime.Parse(parts[5])));
                     }
-                    else if (parts.Length == 6)
-                    {
-                        _goals.Add(new ChecklistGoal(parts[0], parts[1], int.Parse(parts[2]), int.Parse(parts[3]), int.Parse(parts[4])));
-                    }
+                    else if (parts[0].ToLower() == "eternal")
+{
+    _goals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3]), (GoalPriority)Enum.Parse(typeof(GoalPriority), parts[4]), DateTime.Parse(parts[5])));
+}
+else if (parts[0].ToLower() == "checklist")
+{
+    _goals.Add(new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), (GoalPriority)Enum.Parse(typeof(GoalPriority), parts[4]), DateTime.Parse(parts[5]), int.Parse(parts[6])));
+}
                 }
             }
-
             Console.WriteLine("Goals loaded from goals.txt.");
         }
         else
         {
-            Console.WriteLine("goals.txt does not exist.");
+            Console.WriteLine("No saved goals found.");
         }
+    }
+
+    public int GetScore()
+    {
+        return _score;
     }
 }

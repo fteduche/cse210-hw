@@ -1,8 +1,13 @@
-class Program
+using System;
+
+namespace EternalQuest
 {
-    static void Main(string[] args)
+    public class Program
     {
-        GoalManager manager = new GoalManager();
-        manager.Start();
+        public static void Main(string[] args)
+        {
+            GoalManager goalManager = new GoalManager();
+            goalManager.Start();
+        }
     }
 }
