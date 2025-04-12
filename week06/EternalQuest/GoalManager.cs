@@ -122,18 +122,23 @@ public class GoalManager
         }
     }
 
-    public void SaveGoals()
+   public void SaveGoals()
+{
+    if (!File.Exists("goals.txt"))
     {
-        using (StreamWriter writer = new StreamWriter("goals.txt"))
-        {
-            foreach (var goal in _goals)
-            {
-                writer.WriteLine(goal.GetStringRepresentation());
-            }
-        }
-
-        Console.WriteLine("Goals saved to goals.txt.");
+        File.Create("goals.txt").Dispose();
     }
+
+    using (StreamWriter writer = new StreamWriter("goals.txt"))
+    {
+        foreach (var goal in _goals)
+        {
+            writer.WriteLine(goal.GetStringRepresentation());
+        }
+    }
+    Console.WriteLine("Goals saved to goals.txt.");
+}
+
 
     public void LoadGoals()
     {

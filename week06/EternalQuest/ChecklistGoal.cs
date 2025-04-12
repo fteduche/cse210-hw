@@ -23,11 +23,11 @@ public class ChecklistGoal : Goal
         return _amountCompleted >= _target;
     }
 
-    // You can remove this method if you want to use the base class implementation
-    //public override string GetDetailsString()
-    //{
-    //    return $"[{(_amountCompleted >= _target ? "[X]" : "[ ]")}] {_shortName} - {_description} ({_amountCompleted}/{_target})";
-    //}
+  
+    public override string GetDetailsString()
+    {
+        return $"[{(_amountCompleted >= _target ? "[X]" : "[ ]")}] {_shortName} - {_description} ({_amountCompleted}/{_target})";
+    }
 
     public override string GetStringRepresentation()
     {
